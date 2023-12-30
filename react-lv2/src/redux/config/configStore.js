@@ -1,9 +1,9 @@
 import React from 'react'
 import {createStore, combineReducers} from "redux"
-import hendlerButton from '../modules/hendlerButton';
+import hendlerReducer from '../modules/hendlerReducer';
 
 const rootReducer = combineReducers({
-    hendlerButton,
+    hendlerReducer,
 });
 
 const store = createStore(rootReducer);

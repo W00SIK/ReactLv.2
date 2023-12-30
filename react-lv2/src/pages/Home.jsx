@@ -2,16 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import GlobalStyle from '../style/GlobalStyle'
 import { useState } from 'react'
-import {addBtn, deleteBtn} from '../redux/modules/hendlerButton'
-import {useDispatch, useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { addBtn, deleteBtn } from '../redux/modules/hendlerReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import DetailPage from './DetailPage'
 
-const FontH1 = styled.span`
+
+export const FontH1 = styled.span`
     font-size: 18px;
     font-weight: 700;
     color:#FFB0CF;
-    
 `
 const FontH2 = styled.span`
     font-size: 14px;
@@ -19,7 +19,7 @@ const FontH2 = styled.span`
     color:#FFB0CF;
 `
 
-const FontH3 = styled.span`
+export const FontH3 = styled.span`
     font-size: 14px;
     font-weight: 700;
     color: white;
@@ -44,7 +44,7 @@ const FontBoxTodoH2 = styled.div`
 `
 
 
-const BoxHeader = styled.div`
+export const BoxHeader = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -65,6 +65,20 @@ const BoxInputButton = styled.div`
     justify-content: row;
     align-items: center;
     height: 60px;
+    border-radius: 10px;
+    width: 100vh;
+    margin: 0px auto;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px #6969cc;
+    padding: 0px 10px;
+    margin-top: 5px;
+`
+export const BoxInputButtonH = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: row;
+    align-items: center;
+    height: 80vh;
     border-radius: 10px;
     width: 100vh;
     margin: 0px auto;
@@ -154,7 +168,7 @@ const HendlerAddButtonStyle = styled.button`
     cursor: pointer;
 `
 
-const HendlerTodoButtonStyle = styled.button`
+export const HendlerTodoButtonStyle = styled.button`
     height: 24px;
     border: none;
     border-radius: 3px;
@@ -180,30 +194,27 @@ function Home() {
 
 
     // isDone 상태 업데이트
-    // const hendlerIsdoneState = id => {
-    //     const userIsdone =  user.map(user =>
-    //         user.id === id ? { ...user, isDone: !user.isDone } : user
-    //         );
-    // }
-
-
-
+    const hendlerIsdoneState = id => {
+        const userIsdone =  user.map(user =>
+            user.id === id ? { ...user, isDone: !user.isDone } : user
+        );
+    }
 
     // 추가 버튼
     const hendlerAddButton = () => {
-        
-            const newUser = {
-                id: user.length + 1,
-                title,
-                contents,
-                isDone: false,
-                
-            }
-            
-            setUser([...user, newUser])
-            setTitle("")
-            setContents("")
-        
+
+        const newUser = {
+            id: user.length + 1,
+            title,
+            contents,
+            isDone: false,
+
+        }
+
+        setUser([...user, newUser])
+        setTitle("")
+        setContents("")
+
     }
     // 삭제버튼
     const hendlerRemoveButton = (id) => {
@@ -212,6 +223,9 @@ function Home() {
     }
 
     const navigate = useNavigate(null);
+    const dispatch = useDispatch();
+    const firstValue = useSelector((state) => state.hendlerReducer)
+    console.log(firstValue)
     return (
         <>
             <GlobalStyle />
@@ -262,7 +276,10 @@ function Home() {
                                 <FontBoxTodoH2>{item.contents}</FontBoxTodoH2>
 
                                 <HendlerTodoButtonStyle
-                                    onClick={() => hendlerRemoveButton(item.id)}
+                                    onClick={() => {
+                                        hendlerRemoveButton(item.id)
+                                        // dispatch({type:"deleteBtn", payload: item.id})
+                                    }}
                                 >
                                     <FontH3>삭제</FontH3>
                                 </HendlerTodoButtonStyle>
@@ -272,9 +289,9 @@ function Home() {
                                 </HendlerTodoButtonStyle>
 
                                 <HendlerTodoButtonStyle
-                                onClick = {() => {
-                                    navigate("/DetailPage")
-                                }}
+                                    onClick={() => {
+                                        navigate("/DetailPage")
+                                    }}
                                 >
                                     <FontH3>상세보기</FontH3>
                                 </HendlerTodoButtonStyle>
@@ -290,7 +307,7 @@ function Home() {
                     <FontH2>DONE</FontH2>
                 </BoxMainWarkingName>
             </BoxMainWarkingNameArea>
-                
+
         </>
     )
 }
