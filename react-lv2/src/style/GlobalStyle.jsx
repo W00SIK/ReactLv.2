@@ -10,5 +10,6 @@ const GlobalStyle = createGlobalStyle`
         min-width: 800px;
         margin: 0px auto;
     }
+    
 `
 export default GlobalStyle
