@@ -3,11 +3,11 @@ import GlobalStyle from '../style/GlobalStyle'
 import { useNavigate } from 'react-router-dom'
 import {
     FontH1,
-    FontH3,
+    FontH3, 
     BoxHeader,
+    BoxInputButtonH,
     HendlerTodoButtonStyle,
-    BoxInputButtonH
-} from './Home'
+} from '../style/StyledSheet'
 
 
 function DetailPage() {
