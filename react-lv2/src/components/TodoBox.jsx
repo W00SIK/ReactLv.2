@@ -64,7 +64,7 @@ function TodoBox({
 
                                     <HendlerTodoButtonStyle
                                         onClick={() => {
-                                            navigate("/DetailPage")
+                                            navigate(`/${item.id}`)
                                         }}
                                     >
                                         <FontH3>상세보기</FontH3>

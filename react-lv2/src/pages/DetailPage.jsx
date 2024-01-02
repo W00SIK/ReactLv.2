@@ -1,9 +1,10 @@
-import React from 'react'
 import GlobalStyle from '../style/GlobalStyle'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
 import {
     FontH1,
-    FontH3, 
+    FontH3,
     BoxHeader,
     BoxInputButtonH,
     HendlerTodoButtonStyle,
@@ -11,8 +12,16 @@ import {
 
 
 function DetailPage() {
-
+    const params = useParams()
     const navigate = useNavigate(null);
+
+    const user = useSelector((state) => {
+        return state.hendlerReducer
+    })
+    const foundData = user.find((item) => {
+        return item.id === parseInt(params.id)
+    })
+
     return (
         <>
             <GlobalStyle />
@@ -28,7 +37,11 @@ function DetailPage() {
                 </HendlerTodoButtonStyle>
             </BoxHeader>
             <BoxInputButtonH>
-
+                <FontH1>
+                    ID: {foundData.id}<br />
+                    TITLE: {foundData.title}<br />
+                    CONTENTS: {foundData.contents}
+                </FontH1>
             </BoxInputButtonH>
         </>
     )
